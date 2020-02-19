@@ -12,7 +12,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class DemoVIew extends View {
+public class DemoView extends View {
 
 
     /**
@@ -71,22 +71,22 @@ public class DemoVIew extends View {
     private double mAngle;
 
 
-    public DemoVIew(Context context) {
+    public DemoView(Context context) {
         super(context);
         init();
     }
 
-    public DemoVIew(Context context, @Nullable AttributeSet attrs) {
+    public DemoView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public DemoVIew(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DemoView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public DemoVIew(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DemoView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
