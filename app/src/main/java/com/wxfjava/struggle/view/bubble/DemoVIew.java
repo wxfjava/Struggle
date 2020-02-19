@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -64,6 +65,11 @@ public class DemoVIew extends View {
      */
     private PointF controlP = null;
 
+    /**
+     * 关键角角度
+     */
+    private double mAngle;
+
 
     public DemoVIew(Context context) {
         super(context);
@@ -89,15 +95,15 @@ public class DemoVIew extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(3f);
 
         double tan = Math.abs(fixedP.y - dragP.y) / Math.abs(fixedP.x - dragP.x);
-        double angle = Math.atan(tan);
-        float fixedXOffset = (float) (fixedR * Math.sin(angle));
-        float fixedYOffset = (float) (fixedR * Math.cos(angle));
-        float dragXOffset = (float) (dragR * Math.sin(angle));
-        float fdragYOffset = (float) (dragR * Math.cos(angle));
+        mAngle = Math.atan(tan);
+        float fixedXOffset = (float) (fixedR * Math.sin(mAngle));
+        float fixedYOffset = (float) (fixedR * Math.cos(mAngle));
+        float dragXOffset = (float) (dragR * Math.sin(mAngle));
+        float fdragYOffset = (float) (dragR * Math.cos(mAngle));
 
         fixedP1 = new PointF(fixedP.x - fixedXOffset, fixedP.y - fixedYOffset);
         fixedP2 = new PointF(fixedP.x + fixedXOffset, fixedP.y + fixedYOffset);
@@ -111,6 +117,38 @@ public class DemoVIew extends View {
     public void draw(Canvas canvas) {
         super.draw(canvas);
 
+//        drawPaths(canvas);
+
+        drawShapes(canvas);
+        drawArc(canvas);
+//        drawPaths(canvas);
+
+    }
+
+    private void drawArc(Canvas canvas) {
+        RectF fixedRectF = new RectF(fixedP.x - fixedR, fixedP.y - fixedR, fixedP.x + fixedR, fixedP.y + fixedR);
+        canvas.drawArc(fixedRectF, (float) Math.toDegrees(mAngle), 180f, true, mPaint);
+
+        RectF dragRectF = new RectF(dragP.x - dragR, dragP.y - dragR, dragP.x + dragR, dragP.y + dragR);
+        canvas.drawArc(dragRectF, (float) Math.toDegrees(mAngle) + 180f, 180f, true, mPaint);
+    }
+
+    private void drawShapes(Canvas canvas) {
+
+        canvas.drawCircle(fixedP.x, fixedP.y, fixedR, mPaint);
+        canvas.drawCircle(dragP.x, dragP.y, dragR, mPaint);
+
+        Path path = new Path();
+        path.moveTo(fixedP1.x, fixedP1.y);
+        path.quadTo(controlP.x, controlP.y, dragP1.x, dragP1.y);
+        path.lineTo(dragP2.x, dragP2.y);
+        path.quadTo(controlP.x, controlP.y, fixedP2.x, fixedP2.y);
+        path.lineTo(fixedP1.x, fixedP1.y);
+        canvas.drawPath(path, mPaint);
+    }
+
+    private void drawPaths(Canvas canvas) {
+        mPaint.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(fixedP.x, fixedP.y, fixedR, mPaint);
         canvas.drawCircle(dragP.x, dragP.y, dragR, mPaint);
 
@@ -123,6 +161,5 @@ public class DemoVIew extends View {
         path.quadTo(controlP.x, controlP.y, fixedP2.x, fixedP2.y);
         path.lineTo(fixedP1.x, fixedP1.y);
         canvas.drawPath(path, mPaint);
-
     }
 }
