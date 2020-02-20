@@ -66,9 +66,9 @@ public class DemoView extends View {
     private PointF controlP = null;
 
     /**
-     * 关键角角度
+     * 关键角弧度
      */
-    private double mAngle;
+    private double mRadian;
 
 
     public DemoView(Context context) {
@@ -99,11 +99,11 @@ public class DemoView extends View {
         mPaint.setStrokeWidth(3f);
 
         double tan = Math.abs(fixedP.y - dragP.y) / Math.abs(fixedP.x - dragP.x);
-        mAngle = Math.atan(tan);
-        float fixedXOffset = (float) (fixedR * Math.sin(mAngle));
-        float fixedYOffset = (float) (fixedR * Math.cos(mAngle));
-        float dragXOffset = (float) (dragR * Math.sin(mAngle));
-        float fdragYOffset = (float) (dragR * Math.cos(mAngle));
+        mRadian = Math.atan(tan);
+        float fixedXOffset = (float) (fixedR * Math.sin(mRadian));
+        float fixedYOffset = (float) (fixedR * Math.cos(mRadian));
+        float dragXOffset = (float) (dragR * Math.sin(mRadian));
+        float fdragYOffset = (float) (dragR * Math.cos(mRadian));
 
         fixedP1 = new PointF(fixedP.x - fixedXOffset, fixedP.y - fixedYOffset);
         fixedP2 = new PointF(fixedP.x + fixedXOffset, fixedP.y + fixedYOffset);
@@ -127,10 +127,10 @@ public class DemoView extends View {
 
     private void drawArc(Canvas canvas) {
         RectF fixedRectF = new RectF(fixedP.x - fixedR, fixedP.y - fixedR, fixedP.x + fixedR, fixedP.y + fixedR);
-        canvas.drawArc(fixedRectF, (float) Math.toDegrees(mAngle), 180f, true, mPaint);
+        canvas.drawArc(fixedRectF, (float) Math.toDegrees(mRadian), 180f, true, mPaint);
 
         RectF dragRectF = new RectF(dragP.x - dragR, dragP.y - dragR, dragP.x + dragR, dragP.y + dragR);
-        canvas.drawArc(dragRectF, (float) Math.toDegrees(mAngle) + 180f, 180f, true, mPaint);
+        canvas.drawArc(dragRectF, (float) Math.toDegrees(mRadian) + 180f, 180f, true, mPaint);
     }
 
     private void drawShapes(Canvas canvas) {
