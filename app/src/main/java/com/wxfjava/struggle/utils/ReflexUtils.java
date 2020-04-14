@@ -35,4 +35,16 @@ public class ReflexUtils {
         }
         return field;
     }
+
+    public static boolean setProperty(Object owner, String fieldName, Object value) {
+
+        try {
+            Field field = getField(owner.getClass(), fieldName);
+            field.set(owner, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
