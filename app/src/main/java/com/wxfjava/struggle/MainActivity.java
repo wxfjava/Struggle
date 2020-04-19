@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("fh");
     }
 
+    native String hello(String name);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,5 +44,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    native String hello(String name);
+
 }

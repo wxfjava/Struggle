@@ -10,12 +10,32 @@ public class L {
     private static StringAlign stringAlign = new StringAlign();
 
     public static void i(String msg) {
-        String message = getCaller(msg);
+        String message = getFormatMsg(msg);
+        Log.i(TAG, message);
+    }
+
+    public static void i(int msg) {
+        String message = getFormatMsg(String.valueOf(msg));
+        Log.i(TAG, message);
+    }
+
+    public static void i(double msg) {
+        String message = getFormatMsg(String.valueOf(msg));
+        Log.i(TAG, message);
+    }
+
+    public static void i(float msg) {
+        String message = getFormatMsg(String.valueOf(msg));
+        Log.i(TAG, message);
+    }
+
+    public static void i(boolean msg) {
+        String message = getFormatMsg(String.valueOf(msg));
         Log.i(TAG, message);
     }
 
     public static void v(String msg) {
-        String message = getCaller(msg);
+        String message = getFormatMsg(msg);
         Log.v(TAG, message);
     }
 
@@ -27,7 +47,7 @@ public class L {
         }
     }
 
-    private static String getCaller(String msg) {
+    private static String getFormatMsg(String msg) {
         StackTraceElement stackTrace[] = Thread.currentThread().getStackTrace();
         if (stackTrace.length < MIN_STACK_TRACE_LENGTH) {
             return msg;
