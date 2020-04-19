@@ -9,6 +9,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk{
+            moduleName = "fh"
+            abiFilters("armeabi-v7a")
+        }
     }
 
     signingConfigs {
@@ -26,6 +30,19 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/cpp']
+            jniLibs.srcDirs = ['src/main/cpp/libs']
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -37,6 +54,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
 }
 
 dependencies {
